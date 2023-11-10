@@ -1,0 +1,20 @@
+version: '3'
+services:
+  jenkins:
+    container_name: jenkins
+    image: jenkins/jenkins:lts
+    ports:
+      - "8080:8080"
+      - "50000:50000"
+    environment:
+      - JENKINS_ADMIN_ID=admin
+      - JENKINS_ADMIN_PASSWORD=admin_password
+    networks:
+      - jenkins-net
+    restart: unless-stopped
+
+networks:
+  jenkins-net:
+
+volumes:
+  jenkins_home:
