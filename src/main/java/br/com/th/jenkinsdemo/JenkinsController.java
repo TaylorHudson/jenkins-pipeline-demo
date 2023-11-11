@@ -15,4 +15,9 @@ public class JenkinsController {
         return "The project is running on port " + port;
     }
 
+    @GetMapping("/name")
+    public String getName() {
+        return "The project name is jenkinsdemo";
+    }
+
 }
