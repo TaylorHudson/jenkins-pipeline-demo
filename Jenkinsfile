@@ -11,9 +11,11 @@ pipeline {
 
 	stages {
 
-    stage("Clone the project") {
-      git branch: 'main', url: 'https://github.com/TaylorHudson/jenkins-pipeline-demo.git'
-    }
+	    	stage("Clone the project") {
+			steps {
+	      			git branch: 'main', url: 'https://github.com/TaylorHudson/jenkins-pipeline-demo.git'
+			}
+	    	}
     
 		stage('Build'){
 			steps {
