@@ -1,18 +1,36 @@
-node {
-  stage("Clone the project") {
-    git branch: 'main', url: 'https://github.com/TaylorHudson/jenkins-pipeline-demo.git'
-  }
+pipeline {
+	agent any
 
-  stage("Compilation") {
-    sh "./mvnw clean install -DskipTests"
-  }
+	environment {
+		mavenHome = tool 'jenkins-maven'
+	}
 
-  stage("Tests") {
-    sh "./mvnw install"
-  }
+	tools {
+		jdk 'java-17'
+	}
 
-  stage("Deployment") {
-      sh "./mvnw spring-boot:run"
-  }
+	stages {
 
+    stage("Clone the project") {
+      git branch: 'main', url: 'https://github.com/TaylorHudson/jenkins-pipeline-demo.git'
+    }
+    
+		stage('Build'){
+			steps {
+				bat "mvn clean install -DskipTests"
+			}
+		}
+
+		stage('Test'){
+			steps{
+				bat "mvn test"
+			}
+		}
+
+		stage('Deploy') {
+			steps {
+			    bat "mvn jar:jar deploy:deploy"
+			}
+		}
+	}
 }
